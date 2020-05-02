@@ -1,0 +1,24 @@
+body {
+  margin: 0;
+  font-family: 'Courier New', Courier, monospace, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: url(./backg.jpg);
+  background-size: auto;
+
+
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+html {
+  height: 100%;
+}
+
+button{
+  cursor: pointer;
+}
