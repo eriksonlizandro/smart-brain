@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Clarifai from "clarifai";
 import Particles from "react-particles-js";
 import Register from "./components/Register/Register";
 import Signin from "./components/Signin/Signin";
@@ -10,9 +9,6 @@ import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import Rank from "./components/Rank/Rank";
 import "./App.css";
 
-const app = new Clarifai.App({
-  apiKey: "69bb599125f24b8388f4f80859a945c9",
-});
 
 const particlesOptions = {
   particles: {
@@ -23,6 +19,21 @@ const particlesOptions = {
         value_area: 350,
       },
     },
+  },
+};
+
+const initialState = {
+  input: "",
+  imageUrl: "",
+  box: {},
+  route: "signin",
+  isSignedIn: false,
+  user: {
+    id: "",
+    name: "",
+    email: "",
+    entries: 0,
+    joined: "",
   },
 };
 
@@ -57,16 +68,6 @@ class App extends Component {
     });
   };
 
-  //-----ServerConnection-------->
-  /*
-  componentDidMount(){
-    fetch('http://localhost:3000')
-    .then(response => response.json())
-    .then(console.log)
-  }
-  */
-  //-----ServerConnection-------->
-
   calculateFaceLocation = (data) => {
     console.log(data);
     const clarifaiFace =
@@ -91,9 +92,14 @@ class App extends Component {
   };
   onPictureSubmit = () => {
     this.setState({ imageUrl: this.state.input });
-
-    app.models
-      .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+    fetch("http://localhost:3000/imageurl", {
+            method: "post",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify({
+              input: this.state.input
+            }),
+          })
+      .then(response => response.json())
       .then((response) => {
         if (response) {
           fetch("http://localhost:3000/image", {
@@ -115,7 +121,7 @@ class App extends Component {
 
   onRouteChange = (route) => {
     if (route === "signout") {
-      this.setState({ isSignedIn: false });
+      this.setState({ initialState });
     } else if (route === "home") {
       this.setState({ isSignedIn: true });
     }
