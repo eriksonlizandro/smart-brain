@@ -42,10 +42,9 @@ app.get("/profile/:id", (req, res) => {profile.getProfileId(req, res, db)});
 // we search for an image in the app
 
 app.put("/image", (req, res) => {image.getImage(req, res, db)} );
-app.put("/imageurl", (req, res) => {image.getApi(req, res )} );
+app.post("/imageurl", (req, res) => {image.getApi(req, res )} );
 
-//Eviormental Variables
-app.listen(process.env.PORT, () => {
-  console.log(`app is running on port ${process.env.PORT}`);
+app.listen(3000, () => {
+  console.log("app is running on port 3000");
 });
 

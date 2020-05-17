@@ -1,6 +1,6 @@
 const getSignin = (req, res, db , bcrypt) => {
-
-    if (!email || !name || !password){
+    const { email,password } = req.body;
+    if (!email || !password){
         return res.status(400).json('incorrect submission')
     }
     db.select("email", "hash")
